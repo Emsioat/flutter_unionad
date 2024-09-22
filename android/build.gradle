@@ -51,7 +51,8 @@ android {
     }
     defaultConfig {
         minSdkVersion 16
-        targetSdkVersion 34
+        // 从 Android 7.0 开始，Android系统将阻止应用动态链接非公开 NDK 库
+        targetSdkVersion 23
         consumerProguardFiles 'proguard-rules.pro'
     }
 
