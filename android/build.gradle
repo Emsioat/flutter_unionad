@@ -32,7 +32,7 @@ apply plugin: 'kotlin-android'
 
 android {
     if (project.android.hasProperty('namespace')) {
-        namespace 'com.example.flutterunionad'
+        namespace 'com.gstory.flutter_unionad'
     }
 
     compileSdkVersion 34
