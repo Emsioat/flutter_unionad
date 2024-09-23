@@ -2,9 +2,12 @@ group 'com.gstory.flutter_unionad'
 version '1.0-SNAPSHOT'
 
 buildscript {
-    ext.kotlin_version = '1.7.10'
+    ext.kotlin_version = '1.6.10'
     repositories {
-        // Gromore maven 仓库
+        //mintegral sdk依赖   引入mintegral sdk需要添加此maven
+        maven {
+            url "https://dl-maven-android.mintegral.com/repository/mbridge_android_sdk_support/"
+        }
         maven {
             url "https://artifact.bytedance.com/repository/pangle"
         }
@@ -13,10 +16,10 @@ buildscript {
     }
 
     dependencies {
-        // Gromore 自动拉取 Adapre AAR 插件脚本
-        classpath 'com.pangle.cn:mediation-auto-adapter:1.0.3'
         classpath 'com.android.tools.build:gradle:4.0.1'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.20"
+        //Gromore自动拉取 Adapre AAR 插件脚本
+        classpath 'com.pangle.cn:mediation-auto-adapter:1.0.3'
     }
 }
 
@@ -27,15 +30,19 @@ rootProject.allprojects {
         flatDir {
             dirs project(':flutter_unionad').file('libs')
         }
+        //mintegral sdk依赖   引入mintegral sdk需要添加此maven
+        maven {
+            url "https://dl-maven-android.mintegral.com/repository/mbridge_android_sdk_support/"
+        }
         maven {
             url 'https://artifact.bytedance.com/repository/pangle'
         }
     }
 }
 
-apply plugin: 'mediation-auto-adapter'
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
+apply plugin: 'mediation-auto-adapter'
 
 android {
     if (project.android.hasProperty('namespace')) {
@@ -58,8 +65,6 @@ android {
     }
     defaultConfig {
         minSdkVersion 16
-        // 从 Android 7.0 开始，Android系统将阻止应用动态链接非公开 NDK 库
-        targetSdkVersion 23
         consumerProguardFiles 'proguard-rules.pro'
     }
 
